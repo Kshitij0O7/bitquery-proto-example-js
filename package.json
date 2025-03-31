@@ -1,0 +1,23 @@
+{
+  "name": "bitquery-proto-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node consumer.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bs58": "^6.0.0",
+    "dotenv": "^16.4.7",
+    "fs": "^0.0.1-security",
+    "kafkajs": "^2.2.3",
+    "kafkajs-lz4": "^1.2.1",
+    "lz4": "^0.6.5",
+    "lz4-asm": "^0.4.2",
+    "protobufjs": "^7.4.0",
+    "uuid": "^11.1.0"
+  }
+}
