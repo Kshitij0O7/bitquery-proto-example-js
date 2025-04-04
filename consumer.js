@@ -19,7 +19,7 @@ const topic = 'bsc.dextrades.proto';
 const supabase = createClient(process.env.PUBLIC_URL, process.env.API_KEY)
 
 const loadProto = async () => {
-    const root = await protobuf.load('proto/evm/dex_block_message.proto');
+    const root = await protobuf.load('streaming_protobuf/evm/dex_block_message.proto');
     ParsedIdlBlockMessage = root.lookupType('evm_messages.DexBlockMessage');
 }; // Check if link could be used instead of path -- result -- negative
 
