@@ -21,7 +21,8 @@ const supabase = createClient(process.env.PUBLIC_URL, process.env.API_KEY)
 const loadProto = async () => {
     const root = await protobuf.load('proto/evm/dex_block_message.proto');
     ParsedIdlBlockMessage = root.lookupType('evm_messages.DexBlockMessage');
-};
+}; // Check if link could be used instead of path -- result -- negative
+
 
 const convertBytes = (buffer, encoding = 'base58') => {
     if (encoding === 'base58') {
@@ -88,11 +89,13 @@ async function run() {
                 const buffer = message.value;
                 const decoded = ParsedIdlBlockMessage.decode(buffer);
                 const msgObj = ParsedIdlBlockMessage.toObject(decoded, { bytes: Buffer });
-                let timeStamp = msgObj.Header.Time.low*1000;
-                let hash = convertBytes(msgObj.Header.TxHash);
-                writeQueue.push([hash, time, timeStamp]);
+                // let timeStamp = msgObj.Header.Time.low*1000;
+                // let hash = convertBytes(msgObj.Header.TxHash);
+                // writeQueue.push([hash, time, timeStamp]);
                 // writeToExcel(FILE_PATH, SHEET_NAME, [hash, time, timeStamp]);
-                console.log("Entry Sent");
+                // console.log("Entry Sent");
+                console.log(typeof(msgObj));
+
             } catch (err) {
                 console.error('Error decoding Protobuf message:', err);
             }
@@ -100,25 +103,25 @@ async function run() {
     });
 }
 
-const fetch = async () => {
-    try {
-        const { data } = await supabase.from('proto').select();
-        // console.log(data);
-        for(num in data){
-            let msg = data[num]
-            let trades = msg.message.Trades
-            for(i in trades){
-                let time = trades[i];
-                console.log(time);
-                // console.log(convertBytes(hash), "end");
-            }
-            // hash = convertBytes(hash);
-            // console.log(hash);
-        }
-    } catch (error) {
-        console.log(error);
-    }
-}
+// const fetch = async () => {
+//     try {
+//         const { data } = await supabase.from('proto').select();
+//         // console.log(data);
+//         for(num in data){
+//             let msg = data[num]
+//             let trades = msg.message.Trades
+//             for(i in trades){
+//                 let time = trades[i];
+//                 console.log(time);
+//                 // console.log(convertBytes(hash), "end");
+//             }
+//             // hash = convertBytes(hash);
+//             // console.log(hash);
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
 run().catch(console.error);
 // fetch();
