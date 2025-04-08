@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",
+    "bitquery-protobuf-schema": "^1.0.2",
     "bs58": "^6.0.0",
     "dotenv": "^16.4.7",
     "fs": "^0.0.1-security",
@@ -20,6 +21,7 @@
     "lz4-asm": "^0.4.2",
     "node-fetch": "^3.3.2",
     "protobufjs": "^7.4.0",
+    "streaming_protobuf": "^1.0.0",
     "uuid": "^11.1.0",
     "xlsx": "^0.18.5"
   }
