@@ -55,7 +55,7 @@ const kafka = new Kafka({
 
 const consumer = kafka.consumer({ groupId: username + '-' + id});
 
-async function run() {
+const run = async () => {
     let ParsedIdlBlockMessage = await loadProto(topic); // Load proto before starting Kafka
     await consumer.connect();
     await consumer.subscribe({ topic, fromBeginning: false });
