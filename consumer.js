@@ -3,14 +3,14 @@ const bs58 = require('bs58');
 const {loadProto} = require('bitquery-protobuf-schema');
 const { CompressionTypes, CompressionCodecs } = require("kafkajs");
 const LZ4 = require("kafkajs-lz4");
-require('dotenv').config();
+const { v4: uuidv4 } = require('uuid');
 
 CompressionCodecs[CompressionTypes.LZ4] = new LZ4().codec;
 
-let ParsedIdlBlockMessage;
-const username = process.env.USERNAME;
-const password = process.env.PASSWORD;
+const username = '<username>';
+const password = '<password>';
 const topic = 'solana.transactions.proto';
+const id = uuidv4();
 
 const convertBytes = (buffer, encoding = 'base58') => {
     if (encoding === 'base58') {
@@ -53,10 +53,10 @@ const kafka = new Kafka({
     }
 });
 
-const consumer = kafka.consumer({ groupId: username + '-group123' });
+const consumer = kafka.consumer({ groupId: username + '-' + id});
 
 async function run() {
-    ParsedIdlBlockMessage = await loadProto(topic); // Load proto before starting Kafka
+    let ParsedIdlBlockMessage = await loadProto(topic); // Load proto before starting Kafka
     await consumer.connect();
     await consumer.subscribe({ topic, fromBeginning: false });
 
